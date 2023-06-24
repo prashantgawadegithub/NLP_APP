@@ -106,7 +106,56 @@ class NLPApp:
 
         if response:
             messagebox.showinfo('success','Login successful')
+            self.home_gui()
         else:
             messagebox.showerror('error',"Incorrect email/password")
+
+    def home_gui(self):
+
+        self.clear()
+
+        heading=Label(self.root,text="NLPApp",bg='#3377FF',fg='white')
+        heading.pack(pady=(30,30))
+        heading.configure(font=('verdana',24,'bold'))
+
+        sentiment_btn=Button(self.root,text='Sentiment Analysis',width=30,height=4,command=self.sentiment_gui)
+        sentiment_btn.pack(pady=(10,10))
+
+        ner_btn=Button(self.root,text='Named Entity Recognition',width=30,height=4,command=self.perform_login)
+        ner_btn.pack(pady=(10,10))
+
+        emotion_btn=Button(self.root,text='Emotion Prediction',width=30,height=4,command=self.perform_login)
+        emotion_btn.pack(pady=(10,10))
+
+        logout_btn=Button(self.root,text='Logout',command=self.login_gui)
+        logout_btn.pack(pady=(10,10))
+
+    def sentiment_gui(self):
+
+        self.clear()
+
+        heading=Label(self.root,text="NLPApp",bg='#3377FF',fg='white')
+        heading.pack(pady=(30,30))
+        heading.configure(font=('verdana',24,'bold'))
+
+        heading2=Label(self.root,text="Sentiment Analysis",bg='#3377FF',fg='white')
+        heading2.pack(pady=(30,30))
+        heading2.configure(font=('verdana',20))
+
+        label1=Label(self.root,text='Enter the text')
+        label1.pack(pady=(10,10))
+
+        self.sentiment_input=Entry(self.root,width=50)
+        self.sentiment_input.pack(pady=(5,10),ipady=4)
+
+        sentiment_btn=Button(self.root,text='Analyze Sentiment',command=self.login_gui)
+        sentiment_btn.pack(pady=(10,10))
+
+        self.sentiment_result=Label(self.root,text='',bg='#3377FF',fg='white')
+        self.sentiment_result.pack(pady=(10,10))
+        self.sentiment_result.configure(font=('verdana',16))
+
+        goback_btn=Button(self.root,text='Go Back',command=self.home_gui)
+        goback_btn.pack(pady=(10,10))
 
 nlp = NLPApp()
