@@ -37,7 +37,7 @@ class NLPApp:
         self.password_input=Entry(self.root,width=50,show='*')
         self.password_input.pack(pady=(5,10),ipady=4)
 
-        login_btn=Button(self.root,text='Login',width=25,height=2)
+        login_btn=Button(self.root,text='Login',width=25,height=2,command=self.perform_login)
         login_btn.pack(pady=(10,10))
 
         label1=Label(self.root,text='Not a member?')
@@ -97,5 +97,16 @@ class NLPApp:
             messagebox.showinfo('Success','Registration successful. You can login now')
         else:
             messagebox.showerror('error','Email already exists')
+
+    def perform_login(self):
+        email=self.email_input.get()
+        password=self.password_input.get()
+
+        response=self.dbo.search(email,password)
+
+        if response:
+            messagebox.showinfo('success','Login successful')
+        else:
+            messagebox.showerror('error',"Incorrect email/password")
 
 nlp = NLPApp()
