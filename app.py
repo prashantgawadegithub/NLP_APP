@@ -1,12 +1,14 @@
 from tkinter import *
 from mydb import Database
 from tkinter import messagebox
+from myapi import API
 class NLPApp:
 
     def __init__(self):
 
         # create db object
         self.dbo=Database()
+        self.apio=API()
 
         #login gui load
         self.root=Tk()
@@ -148,7 +150,7 @@ class NLPApp:
         self.sentiment_input=Entry(self.root,width=50)
         self.sentiment_input.pack(pady=(5,10),ipady=4)
 
-        sentiment_btn=Button(self.root,text='Analyze Sentiment',command=self.login_gui)
+        sentiment_btn=Button(self.root,text='Analyze Sentiment',command=self.do_sentiment_analysis)
         sentiment_btn.pack(pady=(10,10))
 
         self.sentiment_result=Label(self.root,text='',bg='#3377FF',fg='white')
@@ -158,4 +160,22 @@ class NLPApp:
         goback_btn=Button(self.root,text='Go Back',command=self.home_gui)
         goback_btn.pack(pady=(10,10))
 
+    def do_sentiment_analysis(self):
+
+        text=self.sentiment_input.get()
+        result=self.apio.sentiment_analysis(text)
+
+        txt=''
+        for i in result['sentiment']:
+            txt= txt + i + ' -> '+str(result['sentiment'][i])+'\n'
+
+
+        self.sentiment_result['text']=txt
+
 nlp = NLPApp()
+
+
+
+
+
+
